@@ -1,55 +1,97 @@
 "use client";
 
+import { useShop } from "@/app/context/ShopContext";
+import { Product } from "@/app/api/products/types";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  FaHeart,
+  FaRegHeart,
+  FaCartPlus,
+  FaCheckCircle,
+  FaTimesCircle,
+} from "react-icons/fa";
 
-type Product = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  image: string;
-  stock: number;
-};
+export default function ProductCard({ product }: { product: Product }) {
+  const { addToCart, removeFromCart, favoritesToggle, cart, favorites } =
+    useShop();
+  const router = useRouter();
 
-type Props = {
-  product: Product;
-};
+  const isInCart = cart.some((item) => item.id === product.id);
+  const isFavorite = favorites.some((item) => item.id === product.id);
+  const inStock = product.stock > 0;
+  const hasDiscount = product.discount && product.discount > 0;
+  const finalPrice = hasDiscount
+    ? product.price - product.price * (product.discount / 100)
+    : product.price;
 
-export default function ProductCard({ product }: Props) {
+  const handleCardClick = () => {
+    router.push(`/products/${product.id}`);
+  };
+
   return (
-    <div className="rounded-xl overflow-hidden shadow-md border bg-white transition hover:scale-[1.01]">
-      <div className="relative w-full h-60">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          priority
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 33vw"
-        />
-      </div>
-      <div className="p-4 space-y-2">
-        <h3 className="text-lg font-semibold">{product.name}</h3>
-        <p className="text-sm text-gray-500">{product.description}</p>
-        <div className="flex justify-between items-center pt-2">
-          <span className="font-bold text-primary">${product.price}</span>
-          <span
-            className={`text-sm ${
-              product.stock > 0 ? "text-green-600" : "text-red-500"
-            }`}
-          >
-            {product.stock > 0 ? "In stock" : "Out of stock"}
+    <div
+      onClick={handleCardClick}
+      className="relative border p-4 rounded shadow-sm hover:shadow-md cursor-pointer transition-all"
+    >
+      <Image
+        src={product.image}
+        alt={product.name}
+        width={400}
+        height={100}
+        className="w-full h-70 object-cover mb-3 rounded"
+      />
+      {product.discount > 0 && (
+        <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded ml-2">
+          {product.discount}% OFF
+        </span>
+      )}
+      <h3 className="font-semibold text-lg">{product.name}</h3>
+      <div className="flex items-center justify-between text-sm mt-1">
+        <span className="font-medium text-gray-800">
+          ${finalPrice.toFixed(2)}
+        </span>
+        {hasDiscount && (
+          <span className="line-through text-gray-400 text-xs ml-2">
+            ${product.price.toFixed(2)}
           </span>
-        </div>
+        )}
+
+        <span
+          className={`flex items-center gap-1 text-xs font-medium ${
+            inStock ? "text-green-600" : "text-red-500"
+          }`}
+        >
+          {inStock ? <FaCheckCircle /> : <FaTimesCircle />}
+          {inStock ? "In stock" : "Out of stock"}
+        </span>
       </div>
-      <Link
-        href={`/products/${product.id}`}
-        className="inline-block mt-2 text-sm font-medium text-blue-600 hover:underline"
+
+      <div className="text-yellow-500 text-sm mt-1">
+        {"★".repeat(Math.floor(product.rating)) +
+          (product.rating % 1 >= 0.5 ? "½" : "")}
+      </div>
+
+      {/* Action icons */}
+      <div
+        className="absolute top-2 right-2 flex gap-2 z-10"
+        onClick={(e) => e.stopPropagation()} // Prevent card click
       >
-        View Product
-      </Link>
+        <button
+          onClick={() => favoritesToggle(product)}
+          className="text-red-500 text-xl"
+        >
+          {isFavorite ? <FaHeart /> : <FaRegHeart />}
+        </button>
+        <button
+          onClick={() =>
+            isInCart ? removeFromCart(product.id) : addToCart(product)
+          }
+          className="text-blue-600 text-xl"
+        >
+          <FaCartPlus />
+        </button>
+      </div>
     </div>
   );
 }

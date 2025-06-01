@@ -5,11 +5,13 @@ import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 import { cn } from "@/utils/lib/utils";
+import { useShop } from "@/app/context/ShopContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { cart, favorites } = useShop();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,26 +66,20 @@ export default function Navbar() {
               Products
             </Link>
             <Link
-              href="/sales"
+              href="/sale"
               className={cn(
                 "text-white bold hover-green transition-colors px-3 py-2 text-sm font-medium",
-                isActive("/sales") && "font-bold"
+                isActive("/sale") && "font-bold"
               )}
             >
-              Sales
+              Sale
             </Link>
           </div>
-          <div>
-            <Link
-              href="/contact"
-              className={cn(
-                "ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-full bg-white px-6 py-2 text-sm font-medium shadow-sm transition-colors hover-bg-green",
-                isActive("/contact") && "bg-green font-bold"
-              )}
-            >
-              Contact
-            </Link>
+          <div className="flex gap-4">
+            <Link href="/favorites">Favorites ({favorites.length})</Link>
+            <Link href="/cart">Cart ({cart.length})</Link>
           </div>
+
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
