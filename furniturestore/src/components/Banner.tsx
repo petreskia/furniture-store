@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Button from "./ui/button";
 
 export default function Banner() {
@@ -12,7 +13,9 @@ export default function Banner() {
           Transform your home with stylish, durable, and comfortable furniture
           designed to elevate your living
         </p>
-        <Button text="Shop Now" className="mt-8" />
+        <Link href="/products">
+          <Button text="Shop Now" className="mt-8" />
+        </Link>
       </div>
     </div>
   );
