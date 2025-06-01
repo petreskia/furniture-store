@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Star, Truck, Shield, RotateCcw } from "lucide-react";
-// Import the specific product fetching utility
-import { getProducts } from "@/utils/lib/get-products"; // If getProducts now handles single ID
-// OR import { getProductById } from "@/utils/lib/get-product-by-id"; // If separate utility
 import dynamicImport from "next/dynamic";
+import { getProducts } from "@/utils/lib/get-products";
 import { Product } from "@/app/api/products/types";
+
+// ✅ Avoid 'dynamic' name conflict with export below
 const ProductActions = dynamicImport(
   () => import("@/components/ProductActions"),
   {
@@ -13,34 +13,35 @@ const ProductActions = dynamicImport(
   }
 );
 
+// ✅ Valid Next.js export
+export const dynamic = "force-static";
+export const revalidate = false;
+
 type Props = {
   params: { id: string };
 };
-export const dynamic = "force-static"; // Or 'auto', 'force-dynamic' depending on your needs
-export const revalidate = false; // Or a number of seconds for ISR
 
 export async function generateStaticParams() {
-  const result = await getProducts(); // This fetches ALL products for generating paths
+  const result = await getProducts();
+
   const products: Product[] = Array.isArray(result)
     ? result
     : result
     ? [result]
     : [];
+
   return products.map((product) => ({
     id: product.id.toString(),
   }));
 }
 
 export default async function ProductDetail({ params }: Props) {
-  const id = Number(params.id); // This line is fine, params is synchronous.
+  const id = Number(params.id);
 
-  // 1. Fetch only the specific product for this page
-  // This approach is more efficient if your data source allows fetching by ID.
+  // ✅ Assuming getProducts can accept an ID
   const product: Product | undefined = (await getProducts(id)) as
     | Product
-    | undefined; // Use getProducts with ID
-  // OR if you created a separate getProductById:
-  // const product: Product | undefined = await getProductById(id);
+    | undefined;
 
   if (!product) return notFound();
 
