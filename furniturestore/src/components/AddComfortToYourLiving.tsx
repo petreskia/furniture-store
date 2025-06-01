@@ -1,24 +1,37 @@
 export default function AddComfortToYourLiving() {
   return (
-    <div className="content flex flex-col md:flex-row items-center justify-between mx-auto w-full gap-4 my-6 md:my-15">
-      <div className="flex flex-col">
-        <h2 className="text-4xl">Add Comfort To Your Living</h2>
-        <p className="opacity-30 text-sm">
-          Design your space for comfort. It&apos;s our inspiration and your
-          everyday joy.
-        </p>
+    <section className="py-20">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="space-y-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
+            Add Comfort To Your
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#82a6b1] to-[#6b9aa6]">
+              Living
+            </span>
+          </h2>
+          <p className="text-xl text-gray-600 leading-relaxed">
+            Design your space for comfort. It&apos;s our inspiration and your
+            everyday joy.
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-br from-[#ede0d4] to-[#e6ccb2] p-8 rounded-2xl shadow-lg border border-[#dedbd8]">
+          <p className="text-lg text-gray-700 leading-relaxed">
+            <span className="font-bold text-gray-800">
+              Everyone has an innate desire
+            </span>{" "}
+            to shape and arrange their surroundings in a way that brings{" "}
+            <span className="font-bold text-[#82a6b1]">
+              comfort, beauty, and a sense of belonging
+            </span>
+            . That timeless need is what inspires{" "}
+            <span className="font-bold text-gray-800">
+              every piece we create
+            </span>
+            .
+          </p>
+        </div>
       </div>
-      <div className="w-90">
-        <p className=" indent-20 text-justify leading-5 text-sm">
-          <span className="font-bold">Everyone has an innate desire</span> to
-          shape and arrange their surroundings in a way that brings{" "}
-          <span className="font-bold">
-            comfort, beauty, and a sense of bellonging
-          </span>
-          . That timeless need is what inspires{" "}
-          <span className="font-bold">every piece we create</span>.
-        </p>
-      </div>
-    </div>
+    </section>
   );
 }

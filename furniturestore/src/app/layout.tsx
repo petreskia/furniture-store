@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ShopProvider } from "./context/ShopContext";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Furniture Store",
@@ -19,6 +20,9 @@ export default function RootLayout({
         <ShopProvider>
           <Navbar />
           <main>{children}</main>
+          <footer>
+            <Footer />
+          </footer>
         </ShopProvider>
       </body>
     </html>

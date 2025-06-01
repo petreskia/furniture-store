@@ -2,8 +2,8 @@ import Button from "./ui/button";
 
 export default function Banner() {
   return (
-    <div className="custom-banner relative">
-      <div className="banner-content absolute">
+    <div className="custom-banner relative flex items-center justify-center h-[400px] bg-cover bg-center text-white">
+      <div className="banner-content">
         <h1>
           Discover Timeless Comfort for <br />
           Every Corner of Your Home

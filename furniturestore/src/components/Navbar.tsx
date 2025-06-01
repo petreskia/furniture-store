@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
 import { usePathname } from "next/navigation";
-import { cn } from "@/utils/lib/utils";
+
 import { useShop } from "@/app/context/ShopContext";
+import { ShoppingCart, Heart, Menu, X } from "lucide-react";
+import { cn } from "@/utils/lib/utils";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -32,16 +33,18 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-5 left-80 right-80 border-0 rounded-4xl z-50 transition-all duration-300  backdrop-blur-lg shadow-lg",
-        scrolled ? "bg-black/70 backdrop-blur-md" : "bg-transparent"
+        "fixed top-4 left-4 right-4 md:left-20 md:right-20 lg:left-40 lg:right-40 rounded-2xl z-50 transition-all duration-300 backdrop-blur-lg shadow-lg border border-white/20",
+        scrolled ? "bg-transparent backdrop-blur-md" : "bg-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <span className="text-white text-xl font-bold">Furniture</span>
+              <span className="text-[#82a6b1] text-2xl font-bold">
+                Furniture
+              </span>
             </Link>
           </div>
 
@@ -50,8 +53,8 @@ export default function Navbar() {
             <Link
               href="/"
               className={cn(
-                "text-white hover-green transition-colors px-3 py-2 text-sm font-medium",
-                isActive("/") && "font-bold underline"
+                "text-gray-700 hover:text-[#82a6b1] transition-colors px-3 py-2 text-sm font-medium",
+                isActive("/") && "text-[#82a6b1] font-semibold"
               )}
             >
               Home
@@ -59,8 +62,8 @@ export default function Navbar() {
             <Link
               href="/products"
               className={cn(
-                "text-white hover-green transition-colors px-3 py-2 text-sm font-medium",
-                isActive("/products") && "font-bold"
+                "text-gray-700 hover:text-[#82a6b1] transition-colors px-3 py-2 text-sm font-medium",
+                isActive("/products") && "text-[#82a6b1] font-semibold"
               )}
             >
               Products
@@ -68,54 +71,54 @@ export default function Navbar() {
             <Link
               href="/sale"
               className={cn(
-                "text-white bold hover-green transition-colors px-3 py-2 text-sm font-medium",
-                isActive("/sale") && "font-bold"
+                "text-gray-700 hover:text-[#82a6b1] transition-colors px-3 py-2 text-sm font-medium",
+                isActive("/sale") && "text-[#82a6b1] font-semibold"
               )}
             >
               Sale
             </Link>
           </div>
-          <div className="flex gap-4">
-            <Link href="/favorites">Favorites ({favorites.length})</Link>
-            <Link href="/cart">Cart ({cart.length})</Link>
+
+          {/* Cart and Favorites */}
+          <div className="flex items-center gap-4">
+            <Link
+              href="/favorites"
+              className="flex items-center gap-2 text-gray-700 hover:text-[#82a6b1] transition-colors"
+            >
+              <Heart className="w-5 h-5" />
+              <span className="hidden sm:inline text-sm font-medium">
+                Favorites ({favorites.length})
+              </span>
+              <span className="sm:hidden bg-[#82a6b1] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {favorites.length}
+              </span>
+            </Link>
+            <Link
+              href="/cart"
+              className="flex items-center gap-2 text-gray-700 hover:text-[#82a6b1] transition-colors"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              <span className="hidden sm:inline text-sm font-medium">
+                Cart ({cart.length})
+              </span>
+              <span className="sm:hidden bg-[#82a6b1] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {cart.length}
+              </span>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-blue-400 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#82a6b1] focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Open main menu</span>
               {mobileMenuOpen ? (
-                <svg
-                  className="block h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <X className="h-6 w-6" />
               ) : (
-                <svg
-                  className="block h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
+                <Menu className="h-6 w-6" />
               )}
             </button>
           </div>
@@ -124,47 +127,37 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-black/90 backdrop-blur-md">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="md:hidden bg-[#ede0d4]/95 backdrop-blur-md rounded-b-2xl border-t border-white/20">
+          <div className="px-4 pt-2 pb-4 space-y-2">
             <Link
               href="/"
               className={cn(
-                "text-white hover:text-blue-400 block px-3 py-2 text-base font-medium",
-                isActive("/") && "text-blue-400"
+                "text-gray-700 hover:text-[#82a6b1] block px-3 py-2 text-base font-medium rounded-lg",
+                isActive("/") && "text-[#82a6b1] bg-white/50"
               )}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
-              href="/services"
+              href="/products"
               className={cn(
-                "text-white hover:text-blue-400 block px-3 py-2 text-base font-medium",
-                isActive("/services") && "text-blue-400"
+                "text-gray-700 hover:text-[#82a6b1] block px-3 py-2 text-base font-medium rounded-lg",
+                isActive("/products") && "text-[#82a6b1] bg-white/50"
               )}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Services
+              Products
             </Link>
             <Link
-              href="/packages"
+              href="/sale"
               className={cn(
-                "text-white hover:text-blue-400 block px-3 py-2 text-base font-medium",
-                isActive("/packages") && "text-blue-400"
+                "text-gray-700 hover:text-[#82a6b1] block px-3 py-2 text-base font-medium rounded-lg",
+                isActive("/sale") && "text-[#82a6b1] bg-white/50"
               )}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Packages
-            </Link>
-            <Link
-              href="/contact"
-              className={cn(
-                "text-white hover:text-blue-400 block px-3 py-2 text-base font-medium",
-                isActive("/contact") && "text-blue-400"
-              )}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Contact
+              Sale
             </Link>
           </div>
         </div>
