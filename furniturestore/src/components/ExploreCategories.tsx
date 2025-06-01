@@ -6,7 +6,7 @@ const categories = [...new Set(products.map((p) => p.category))];
 
 export default function ExploreCategories() {
   return (
-    <section className="py-20">
+    <section className="py-10 lg:py-20">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">
           Explore Our Categories

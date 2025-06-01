@@ -6,7 +6,7 @@ export default function NewArrivalsSection() {
   const newArrivals = products.filter((p) => p.newArival).slice(0, 4);
 
   return (
-    <section className="py-20">
+    <section className="py-5 lg:py-20">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">New Arrivals</h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">

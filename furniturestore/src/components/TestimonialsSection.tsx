@@ -51,7 +51,7 @@ export default function TestimonialsSection() {
             >
               <div className="flex items-center mb-4">
                 <Image
-                  src={testimonial.image || "/placeholder.svg"}
+                  src={testimonial.image}
                   alt={testimonial.name}
                   height={80}
                   width={80}

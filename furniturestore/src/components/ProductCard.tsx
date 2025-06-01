@@ -20,9 +20,9 @@ export default function ProductCard({ product }: { product: Product }) {
   const isInCart = cart.some((item) => item.id === product.id);
   const isFavorite = favorites.some((item) => item.id === product.id);
   const inStock = product.stock > 0;
-  const hasDiscount = product.discount && product.discount > 0;
+  const hasDiscount = product.discount > 0;
   const finalPrice = hasDiscount
-    ? product.price - product.price * (product.discount / 100)
+    ? product.price - product.price * ((product.discount ?? 0) / 100)
     : product.price;
 
   const handleCardClick = () => {

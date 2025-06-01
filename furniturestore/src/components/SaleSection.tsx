@@ -9,7 +9,7 @@ export default function SaleSection() {
     .slice(0, 4);
 
   return (
-    <section className="py-20">
+    <section className="py-5 lg:py-20">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
         <div>
           <h2 className="text-4xl font-bold text-gray-800 mb-2">

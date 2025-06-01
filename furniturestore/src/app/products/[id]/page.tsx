@@ -4,23 +4,16 @@ import { Star, Truck, Shield, RotateCcw } from "lucide-react";
 // Import the specific product fetching utility
 import { getProducts } from "@/utils/lib/get-products"; // If getProducts now handles single ID
 // OR import { getProductById } from "@/utils/lib/get-product-by-id"; // If separate utility
-
-type Product = {
-  // Define your Product type
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  discount?: number;
-  rating: number;
-  stock: number;
-  image: string;
-};
+import dynamic from "next/dynamic";
+import { Product } from "@/app/api/products/types";
+const ProductActions = dynamic(() => import("@/components/ProductActions"), {
+  ssr: false,
+});
 
 type Props = {
   params: { id: string };
 };
-export const dynamic = "force-static"; // Or 'auto', 'force-dynamic' depending on your needs
+export const dynamicMode = "force-static"; // Or 'auto', 'force-dynamic' depending on your needs
 export const revalidate = false; // Or a number of seconds for ISR
 
 export async function generateStaticParams() {
@@ -48,7 +41,8 @@ export default async function ProductDetail({ params }: Props) {
 
   if (!product) return notFound();
 
-  const hasDiscount = product.discount && product.discount > 0;
+  const hasDiscount =
+    typeof product.discount === "number" && product.discount > 0;
   const finalPrice = hasDiscount
     ? product.price - product.price * ((product.discount ?? 0) / 100)
     : product.price;
@@ -136,15 +130,7 @@ export default async function ProductDetail({ params }: Props) {
 
             {/* Action Buttons */}
             <div className="space-y-4">
-              <button
-                disabled={product.stock === 0}
-                className="w-full bg-gradient-to-r from-[#82a6b1] to-[#6b9aa6] text-white py-4 px-8 rounded-full font-semibold text-lg hover:from-[#6b9aa6] hover:to-[#5a8a96] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
-              >
-                Add to Cart
-              </button>
-              <button className="w-full bg-white text-[#82a6b1] py-4 px-8 rounded-full font-semibold text-lg border-2 border-[#82a6b1] hover:bg-[#82a6b1] hover:text-white transition-all duration-300">
-                Add to Favorites
-              </button>
+              <ProductActions product={product} />
             </div>
 
             {/* Features */}

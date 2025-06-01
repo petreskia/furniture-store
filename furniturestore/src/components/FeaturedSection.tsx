@@ -6,7 +6,7 @@ export default function FeaturedSection() {
   const featuredProducts = products.filter((p) => p.featured).slice(0, 4);
 
   return (
-    <section className="py-20">
+    <section className="py-5 lg:py-20">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">
           Featured Products

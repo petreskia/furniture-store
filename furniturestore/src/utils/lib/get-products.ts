@@ -2,17 +2,7 @@
 // (Assuming your products data is an array in a JSON file or similar)
 
 import { products } from "@/app/api/products/data";
-
-type Product = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  discount?: number;
-  rating: number;
-  stock: number;
-  image: string;
-};
+import { Product } from "@/app/api/products/types";
 
 // This function now supports fetching all products OR a single product by ID
 export async function getProducts(

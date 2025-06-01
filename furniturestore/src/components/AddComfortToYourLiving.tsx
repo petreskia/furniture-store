@@ -1,6 +1,6 @@
 export default function AddComfortToYourLiving() {
   return (
-    <section className="py-20">
+    <section className="py-10 lg:py-20">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
