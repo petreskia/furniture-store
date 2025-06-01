@@ -4,16 +4,19 @@ import { Star, Truck, Shield, RotateCcw } from "lucide-react";
 // Import the specific product fetching utility
 import { getProducts } from "@/utils/lib/get-products"; // If getProducts now handles single ID
 // OR import { getProductById } from "@/utils/lib/get-product-by-id"; // If separate utility
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 import { Product } from "@/app/api/products/types";
-const ProductActions = dynamic(() => import("@/components/ProductActions"), {
-  ssr: false,
-});
+const ProductActions = dynamicImport(
+  () => import("@/components/ProductActions"),
+  {
+    ssr: false,
+  }
+);
 
 type Props = {
   params: { id: string };
 };
-export const dynamicMode = "force-static"; // Or 'auto', 'force-dynamic' depending on your needs
+export const dynamic = "force-static"; // Or 'auto', 'force-dynamic' depending on your needs
 export const revalidate = false; // Or a number of seconds for ISR
 
 export async function generateStaticParams() {
