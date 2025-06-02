@@ -219,7 +219,7 @@ export default function Footer() {
         <div className="border-t border-[#dedbd8] mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-600 text-sm">
-              © 2024 Furniture Store. All rights reserved.
+              © 2024 Aluma Furniture. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <Link
