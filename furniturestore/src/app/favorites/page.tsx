@@ -9,7 +9,7 @@ export default function FavoritesPage() {
 
   if (favorites.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#ede0d4] to-[#e6ccb2] pt-24">
+      <div className="min-h-screen pt-24">
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="text-center bg-white rounded-2xl p-12 shadow-lg border border-[#dedbd8]">
             <Heart className="w-24 h-24 text-gray-400 mx-auto mb-6" />
@@ -32,7 +32,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#ede0d4] to-[#e6ccb2] pt-24">
+    <div className="min-h-screen pt-24">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-12">
           <div>

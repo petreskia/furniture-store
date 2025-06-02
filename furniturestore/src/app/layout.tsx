@@ -5,7 +5,7 @@ import { ShopProvider } from "./context/ShopContext";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Furniture Store",
+  title: "Aluma Furniture",
   description: "Beautifully crafted furniture for your home.",
 };
 

@@ -52,7 +52,7 @@ export default async function ProductDetail({ params }: Props) {
     : product.price;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#ede0d4] to-[#e6ccb2] pt-24">
+    <div className="min-h-screen pt-24">
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Product Image */}

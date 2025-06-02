@@ -103,7 +103,7 @@ function ProductsContent() {
 // The main page component that wraps the client-side content in Suspense
 export default function ProductsPageWrapper() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#ede0d4] to-[#e6ccb2] pt-24">
+    <div className="min-h-screen pt-24">
       <div className="max-w-7xl mx-auto px-4 py-10">
         <Suspense fallback={<div>Loading products...</div>}>
           <ProductsContent /> {/* Render the actual client-side content */}
